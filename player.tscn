@@ -1,10 +1,28 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2d2mcfftvwje"]
+[gd_scene load_steps=15 format=3 uid="uid://c2d2mcfftvwje"]
 
-[ext_resource type="Script" path="res://Player/sript/player.gd" id="1_xuqxe"]
+[ext_resource type="Script" path="res://Player/script/player.gd" id="1_xuqxe"]
 [ext_resource type="Texture2D" uid="uid://dhp1vs7gidtaw" path="res://Player/ExamplePlayerSprite.png" id="1_yytu5"]
+[ext_resource type="Script" path="res://Player/script/player_state_machine.gd" id="3_a0ilo"]
+[ext_resource type="Script" path="res://Player/script/state_idle.gd" id="4_8rn03"]
+[ext_resource type="Script" path="res://Player/script/state_walk.gd" id="5_uie52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g5c2u"]
 radius = 10.0499
+
+[sub_resource type="Animation" id="Animation_i2ihe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_dhw44"]
 resource_name = "idle_down"
@@ -21,21 +39,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_i2ihe"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_t78wu"]
@@ -149,3 +152,12 @@ hframes = 21
 libraries = {
 "": SubResource("AnimationLibrary_abgbe")
 }
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_a0ilo")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_8rn03")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("5_uie52")
