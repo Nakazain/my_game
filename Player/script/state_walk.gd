@@ -14,13 +14,15 @@ func Exit() -> void:
 func Process( _delta : float ) -> State:
 	if player.direction == Vector2.ZERO:
 		return idle
+
+	if player.SetDirection():
+		player.UpdateAnimation("walk")
 	
 	player.velocity = player.direction * move_speed
 	
-	if player.SetDirection():
-		player.UpdateAnimation("Walk")
 	
 	return null
+
 
 func Physics( _delta : float ) -> State:
 	return null

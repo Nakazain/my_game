@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	pass
 
 
-func _unhandled_input(event):
+func _unhandled_input(event) -> void:
 	ChangeState( current_state.HandleInput( event ) )
 	pass
 
